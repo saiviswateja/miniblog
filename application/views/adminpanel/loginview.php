@@ -8,18 +8,28 @@
 	<!-- Bootstrap CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous"/>
 	<link href="https://getbootstrap.com/docs/5.0/examples/sign-in/signin.css" rel="stylesheet" type="text/css"/>
-	<title>Hello, world!</title>
+	<title>Login</title>
 </head>
 <body>
-<form class="form-signin">
+<form class="form-signin" action="<?= base_url().'admin/login/login_post' ?>" method="post">
+
+	<?php
+		if($error!="NO_ERROR"){
+			echo "
+			<div class='alert alert-danger' role='alert'>";
+				echo $error;
+			echo "</div>
+			";
+		}
+	?>
 	<h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
 	<div class="form-floating">
-		<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+		<input type="text" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
 		<label for="floatingInput">Email address</label>
 	</div>
 	<div class="form-floating">
-		<input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+		<input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
 		<label for="floatingPassword">Password</label>
 	</div>
 
