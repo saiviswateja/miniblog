@@ -52,14 +52,14 @@ class Blog extends CI_Controller
 	function editblog($blog_id)
 	{
 //		print_r($blog_id);
-		$query = $this->db->query("SELECT `blog_title`, `blog_desc`, `blog_img` FROM `articles` WHERE `blogid`='$blog_id'");
+		$query = $this->db->query("SELECT `blog_title`, `blog_desc`, `blog_img`, `status` FROM `articles` WHERE `blogid`='$blog_id'");
 		$data['result'] = $query->result_array();
 		$data['blog_id'] = $blog_id;
 		$this->load->view("adminpanel/editblog", $data);
 	}
 
 	function editblog_post(){
-
+		print_r($_POST);
 		print_r($_FILES);
 		if ( $_FILES['file']['name'] ) {
 			//die("Update File");
@@ -86,9 +86,10 @@ class Blog extends CI_Controller
 				$blog_title = $_POST['blog_title'];
 				$desc = $_POST['desc'];
 				$blog_id = $_POST['blog_id'];
+				$publish_unpublish = $_POST['publish_unpublish'];
 
-				$query = $this->db->query("UPDATE `articles` SET `blog_title`='$blog_title',`blog_desc`='$desc',`blog_img`='$filename_location' WHERE `blogid`='$blog_id'");
-;				if($query){
+				$query = $this->db->query("UPDATE `articles` SET `blog_title`='$blog_title',`blog_desc`='$desc',`blog_img`='$filename_location',`status`='$publish_unpublish' WHERE `blogid`='$blog_id'");
+				if($query){
 					$this->session->set_flashdata('updated','yes');
 					redirect("admin/blog");
 				}
@@ -102,8 +103,9 @@ class Blog extends CI_Controller
 			$blog_title = $_POST['blog_title'];
 			$desc = $_POST['desc'];
 			$blog_id = $_POST['blog_id'];
+			$publish_unpublish = $_POST['publish_unpublish'];
 
-			$query = $this->db->query("UPDATE `articles` SET `blog_title`='$blog_title',`blog_desc`='$desc' WHERE `blogid`='$blog_id'");
+			$query = $this->db->query("UPDATE `articles` SET `blog_title`='$blog_title',`blog_desc`='$desc',`status`='$publish_unpublish' WHERE `blogid`='$blog_id'");
 			;				if($query){
 				$this->session->set_flashdata('updated','yes');
 					redirect("admin/blog");
